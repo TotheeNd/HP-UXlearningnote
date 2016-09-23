@@ -1,0 +1,875 @@
+
+
+
+filter--过滤器
+Pipes-- 管道
+LAN--local area network  
+foreground -- background  前台后台
+monitor 监听  
+delimited   分隔的 
+omit 	丢掉
+excess   过量，过度 
+reenter  重加入
+neutral   中立的                                      revision  修订
+facilitate  使便利      discard  丢弃            numerous  很多的        alias   别名
+						There are no prerequisities for this course . It is assumed ,however that students have been exposed to computers , and that they are familiar with keyboard.
+Hierarchical  多层次的
+defect -- 缺陷
+status -- 身份，状态
+						based upon HP-UX Releases 10.xx and 11.00
+appendix -- 附加物       1. UNIX和VMS   VMS是啥?MPE???
+encrypt -- 加密    emulator  竞争者    miscellaneous   多种多样的			substitution    替代物    		archive    存档       verbose 啰嗦，冗长
+
+-----------------------------------------------Module 1--Introduction to UNIX----------------------------------------------------------------------------
+
+1.Describe the basic structure and capabilities of the UNIX operating system?
+A:     capability:
+				(controls the computer(hardware),
+				serve as a liaison between the consumers and the resources,
+				coordinating the allocation of limited resources among numerous consumers.
+				traffic cop -- regulating the flow of data 
+				resource allocator -- regulating the use of resources)--operating system
+				Hierarchical file system : directory can be used to store files or other directories .
+				Muilti-tasking : it appears that all programs are executing simultaneously
+				Muilti-user : 
+
+		structure:   kernel + shell
+				include a time-sharing system and an interactive flexible operating system 
+				modular architechture at all levels
+2.Describe the HP_UX
+A:      complying some stantard and has a gui
+
+
+
+
+----------------------------------------------------------------------Module 2--Logging in and General Orientation---------------------------------------------
+1.log in to a UNIX system 
+			password in     /etc/passwd
+2.log out of a UNIX system 
+         	exit     or     ctrl + u
+3.look up commands in the HP-UX reference Manual
+4.Look up commands using online manual
+5.Describe the format of the shell's command line 
+6.Use some simple UNIX　system commands for identifying system users 
+7.~~ for communicating with system users
+8.~~ for miscellaneous utilities and output
+		type two commands on a single line seperated by semicolon(;)
+		the secondary prompt --- to interrupt ctrl + c
+		the man command --- retrieving information from the online manual    qiut the man command : press q  
+9.  
+	the id command --- displays user and group identification , group means that someone in this group can get the access to some files or program related to this group
+	the who command --- reports which user are logged into a system     who am i     ;   whoami
+	the date command --- accepts arguments that allow the output to be formatted .       date +%m/%d/%y
+	the passwd command --- assigns a login passwd
+	the echo command --- writes arguments to the terminal
+	the banner command --- displays arguments in large letters 
+	the clear command --- clears terminal screen 
+	the write command ---    format : write username --> send messages to username if logged in , press enter to transmit messages
+	the mesg command --- allows or denies " writes" to your terminal      format : mesg [y|n]      except super user
+	the news command --- displays the system news   format : news [-a] [-n] [headline]         each news messages is stored as a file under the directory :   /var/news
+	the stty command :
+
+----------------------------------------------------------------------Module 3--Using CDE---------------------------------------------------------------------------
+1.front panel pop-up menus
+2.workspaces switch
+...
+
+
+----------------------------------------------------------------------Module 4--Navigating the File system-----------------------------------------------------------
+1.The File System Hierarchy : 
+
+
+static files :  these are shared .  /opt ; /usr ; /sbin ;
+Dynamic files : these are private.  /home ; /etc ; /stand ; /tmp ; /dev ; /mnt ; /var ;  
+NOTE : A UNIX system convention defines that files under any directory called tmp can be moved at any time .
+	
+
+	/											---   root directory
+		sbin						            ---   contains the essential commands used for startup and shutdown
+		usr
+			bin                                 ---   section 1 ;contain the programs necessary for basic UNIX sys operation and file manupilation,accessible for all users
+				cp
+				ls
+				man
+				sh
+				tar
+				vi
+			contrib
+				bin                             ---   stores public programs and utilities , 
+			lib                                 ---   contains archive and shared libraries used for applications
+			local
+				bin                             ---   stores local developed programs and utilities                  
+			sbin                                ---   section 1m ;sys admin commands,many of them only for super-user
+			shared                              ---   contains vendor independent files(the most important is the manual)
+				man                             ---   contains all files associated with the online manual pages
+			vue
+
+		dev                                     ---   contains the files that represent hardware devices that may be connected to your system.act as a gateway to the device.
+		etc                                     ---   holds many of the system configuration files . documented in the manual sections 4
+			group
+			passwd
+			profile
+		opt                                     ---   contain applications and products , admin/developer use it to install new app and products      
+		var
+			mail                                ---   this directory contains a " mailbox" for each user who has incoming mail
+			news                                ---   this directory contains all of the files representing the current news messages
+			tmp                                 ---   this directory commonly is used as a scratch space for users. 
+			vue
+		stand                                   ---   duli kezhixing chengxu
+			vmunix                              ---   stores the program that is the UNIX system kernel and loaded into memory when your system is tured on, controls all of your sys operation
+		tmp                                     ---   used as a scrach space for operating system that need to create intermediate or working files
+		home                                    ---   contains one subdirectory for each user account on the system .  
+			user1
+			user2
+			user3
+		mnt                                     ---   this directory will be used to mount other devices
+
+
+2. path name : At all times while you are logged in to a UNIX system you will be positioned in some directory in the hierarchy . you can change your position to some other directory through UNIX system commands ,  but you will still always be in some directory . for instance ,  when you log in , you will be initially placed in your HOME directory .  
+
+		Absolute path name :
+			gives the complete designation of the location of a file or directory 
+			always starts at the top of the hierarchy(the root : /)
+			not dependent on your current location in the hierarchy
+			always is unique across the entire hierarchy
+		Relative path name :
+			always starts at your current location in the hierarchy
+			never start with a /
+			is unique relative to your current location only
+			is often shorter than the absolute path name
+
+
+3. some special directories :
+       Dot(.) : represents your current directory position , for example : if you are currently in the directory /home/user3  , then :
+
+       					.           --->   /home/user3
+       					./f1        --->   /home/user3/f1
+       					./memo/f1   --->   /home/user3/memo/f1
+       Dot Dot(..) : represents the parent directory , for example : if you are currently in the directory /home/user3 , then :
+       					..          --->   /home
+       					../..       --->   /
+       					../../tmp   --->   /tmp
+
+
+
+4. Basic file system commands : 
+		pwd   (Present Working Directory)        displays the directory name of your current location in the hierarchy.abolute path name.
+		
+		ls    (list contents of a Directory)        sees what files and directories are under the current directory
+			-a         list all files,include those whose name start with a dot(.),which are normally are hidden
+			-d         list characteristics of the directory.often used with -l
+			-l         provides a long listing that describes attributes about each file.
+			-F         appends a slash(/) to e a directory and an asterisk(*) to file that is executable
+			-R         Recursively lists files in the given directory and in all subdirectories.
+			-C         cause the ls output to be displayed in multicolumn format
+		
+		cd    (change directory)          changes your location in the hierarchy to another directory
+		    cd path_name       path_name can be absolute or relative .   cd with no arguments takes you HOME
+		
+		
+		find          find files       It is very slow and uses a lot of the CPU capacity .  It should be used sparingly .
+		    find path_list expression  :   path_list is a list of directories to search ; expression specifies search criteria and actions and are all preceded by a hyphen(-)
+		
+		
+		mkdir         creates a directory    the arguments to mkdir represent the new directory names.
+		
+		rmdir         removes a directory				
+   
+
+  NOTE : the directory you are located in is often referred to your working directory
+
+
+
+
+----------------------------------------------------------------------Module 5--Managing Files--------------------------------------------------------------------------------
+
+
+1.Explain the purpose of the line printer spooler system.
+2.Identify and use the line printer spooler commands used to interact with the system
+3.Monitor the status of the line printer spooler system.
+
+
+
+		What is a file ?       --->       A container for data or a link to a device . Everything in the UNIX system is a file , which includes :
+										-  Regular files :text , mail messages , data ...
+										-  Programs :  Executable programs such as ksh , who , data ... 
+												compiled code that cannot be displayed on your terminal( mail , who , date)
+												shell script which can be displayed to your terminal ( .profile , .logout)
+										-  Directories : Special files that contains the name and file system identifier for the files and directories that contain
+												also stores an inode number for every entry
+										-  Devices : Special files providing the interface to hardware devices such as disks , terminals , printers , and memory
+												they will never hold any actual data . these files are commonly stored under the /dev directory . 
+
+		File Characteristics   --->        they can displayed using the   ls  -l   command : 
+
+
+							-File name Specification : some special characters can't use ; Dot is only specail when it appears as the first character of a file name
+														which means hidden file;
+							-File types : 
+											-       A regular file
+											d 		A directory
+											l 		A symbolically linked file
+											n 		A network special file
+											c   	A character device file(terminals , printer)
+											b   	A block device file (disks)
+											p 		A named pipe (an interprocess communication channel)
+
+	    What can we do with Files ?  --->
+	    				cat     Display the contents of a file            
+	    													cat [file...]
+	    				file    to determin if a file is a text file or an executable file(which could disrupt a user's terminal)
+	    				more    Display the contents of a file(one screen at a time)
+	    							when using more ,we can have control over the output of their files to the screen;also provide headers when multiple files are being displayed with one more command , unlike cat
+	    				tail    Display the last n lines of a file (n default to 10 if not supplied)  
+	    													tail [-n] [filename]
+	    				head    companion command to tail
+	    				cp      Copy files                  cp [-i] file new-file  			  ---   copy a file
+	    													cp [-i] file [file...] dest_dir   ---   copy files to a directory
+	    													cp -r [-i] dir [dir...] dest_dir  ---   copy directories
+	    						-i (interactive) option will warn you if the destination file exists and require you to verify that the file should be copied over
+	    				mv      move or rename files        mv [-i] file new_file             ---   rename a file
+	    													mv [-i] file [file...] dest_dir   --- move files to a directory
+	    													mv [-i] dir [dir...] dest_dir     --- rename or move directories
+	    				ln      link files                  ln file new_file                  --- link to a file
+	    													ln file [file ...] dest_dir       --- link files to a directory
+	    				rm      remove files                rm [-if] filename [filename...]   --- remove files
+	    													rm -r[if] dirname [filename...]   ---remove directories
+	    						-f   forces the named files to be removed -- no notice will be given to the user,even if an error occurs
+	    						-r   recursively removes the contents of any directories named on the command line(be careful of this option,Used incorrectly,it may remove ALL of your files)
+	    								rm -ir dirname
+	    						-i   interactive mode
+
+
+----------------------------------------------------------------------Module 6--File Permissions and Access--------------------------------------------------------------------------------
+who has Access to a File?
+					
+					user       the owner of the file(have complete control over who has what access to the file)
+					group 	   A group that may have access to the file 
+					other 	   Everyone else
+Types of Access :
+					Read       r
+					Write      w
+					Execute    x
+				Note: 	In order to run a file as a program , both read(r) and execute(x) permissions are required
+
+						file deletion is controlled at the directory level , not the file level . means that if you don't have write access to a file , you can't change the content of the file , but you can delete the file . but if you don't have write access to a directory , you can't change the content of the dir and you can't delete , add , rename the files of the dir. 
+
+
+		chmod  ---  change permissions of a file         
+						Syntax :      
+										chmode [who[operator]permission] [,...]          
+
+							who    ---   user(u) , group(g) , other(o) , all(a)
+							operator --- add(+) , subtract(-) , set equal to(=)
+							permission-- read(r) , write(w) , execute(x)
+
+						example :
+										chmod u+x,g+x,o+x file
+				Note:     To disable all of the permissions on a file :      
+
+									chmod = filename
+						example :		chmod g=rw,o=f1
+
+		umask  ---  Permission Mask  ;  
+		             the usual default permissions on a newly created file are rw-rw-rw- , on a newly created directory are rwxrwxrwx , which means that any user can change to this directory and delete anything from this directory;to protect the files that you will create during your session , you should use the umask command.this will disable designated default permissions on any new file or directory that you create . the mask that you designate is active untill you log out,umask will have no affect on existing files .
+
+		touch  ---  Update timestamp on file :
+					 the touch command allows you to create a new , empty file . if the designated file already exists , touch will just update the time stamp on the file . it will have no effect on the contents of the file.
+
+			options :
+					-a time       change the access time to time
+					-m time       change the modify time to time
+					-t time  	  use time instead of current time
+					-c            if the file does not exist , do not create it
+
+		chown  ---  change file ownership(only the owner of a file or root can change the ownership of the file)
+
+		     			Syntax :
+		     							chown owner [:group] filename ...
+		     			example :
+		     							chown user2 /tmp/user2/f1
+
+		chgrp  ---  change group access to a file(only the owner of a file or root can change the group of the file)
+
+						Syntax :
+										chgrp newgroup filename
+						example : 
+										chgrp class2 f3
+				Note:        /etc/group  contains the group IDs for all of your system's users
+							 /etc/passwd contains the user IDs for all of your system's users
+
+		su     ---  Switch User ID   change your user ID and group ID designation ; to return to your previous user ID ,you can use an exit command
+
+
+----------------------------------------------------------------------Module 7--Shell Basics-----------------------------------------------------------------------------------------------
+
+		dereference 间接引用       substitute  代替
+
+What is a shell ?
+				
+		A shell is an interactive program that serves as a command line interpreter . It is separate from the operating system . This design provides users with the flexibility of selecting the interface that is most appropriate for their needs . A shell's job is to allow you to type in your command , perform several functions , and pass the interpreted command to the operating system(kernel) for execution .
+
+Commonly used shells :
+	
+		POSIX shell ≈ Korn shell > Bourne shell 
+		The main advantage of HP POSIX Shell is that it has most of the POSIX related features and is compatible with the HP Korn shell .
+
+POSIX Shell Features :
+ 	
+ 		- command history mechanism
+ 		- command line recall and editing
+ 		- Job control
+ 		- File name completion
+ 		- command aliasing
+ 		- enhanced cd capabilities
+ 		- Advanced programming capabilities
+
+Aliasing :   the alias is a new name for a command . Aliasing is a method by which you can abbreviate long command lines
+
+		Syntax : 		alias [name[=string]]
+		Example :		alias mroe=more
+						alias psf="ps -ef"       // if the string contains spaces , you enclose the whole string in quotes.
+
+		Note : The shell will expand the alias prior to command execution ,and then execute the resulting command line.When entered interactively , the alias is available until you log out.
+
+File Name Completion :
+
+		You provide enough characters that uniquely identify the file name , then press Esc Esc and the POSIX shell will fill in the remainder of the file name .
+		If the string is not unique , the POSIX shell cannot resolve the file name and you will have to provide some assistance , you can press Esc = to list the possible choices .
+		File name completion can be used anywhere in the path of a file name .
+
+Command History :
+
+		The POSIX shell keeps a history file of commands that you enter . The history command displays the last 16 commands . You can recall , edit , and re-enter commands previously entered
+
+		Syntax : 		history [-n| a z]
+		Example :		history  -2              // list the last two commands
+					    history 3 5              // list command numbers 3 through 5
+
+Re-entering Commands :    you type r c to re-enter command number c.
+
+Recalling Commands : 
+		-The EDITOR variable must be set---which defaults to /usr/bin/ed---in order to use the recall and editing features of /usr/bin/sh .This is normally done in the user's .profile . 
+			$ EDITOR=/usr/bin/vi
+			$ export EDITOR
+		-Note that the arrow keys cannot be used to edit the command line , even in UNIX .
+		-You must enter ESC to toggle into command mode
+		-Just use vi commands to scroll through the command stack
+		-To execute the displayed command , just enter Return .
+
+Command Line Editing:
+		-Provides the ability to modify text entered on current or previous command lines
+		-Press Esc to enter command mode
+		-Recall desired command by either :
+			Pressing k until it appears 
+		-Typing the command number , then G
+		-An alternate way of locating commands is :
+			press Esc k , then type / pattern , for example , /cd to locate the last cd command . If you type another / you would recall the next to last cd command , and so on .Once you have searched for a pattern , typing n will also search for the next occurrence .
+		you could execute the command by press Return .
+
+command Line Editing(continued) :
+
+		-Use Esc to enter the vi editing mode
+		-Press Esc and then k to recall command 
+		-To postion the cursor :
+			use l key to move right ; use h key to move left ; and you also can use w ,b ,$ ;
+		-Do not use the Arrow keys 
+		-To modify text :
+			use x to delete a character;use i to insert ,a to append charachters;use r to replace character ; p to paste character .
+			press Esc to stop adding charachters
+		-Press Return to execute the modified command
+
+The User Environment : Your envirenment describes your session to the programs you run .
+		
+		Syntax : 		env
+		Note: 	Your environment contains information concerning the following :
+			-the path name to your home directory              HOME
+			-where to send your electronic mail
+			-the time zone you are working in 
+			-who you logged in as                              LOGNAME
+			-where your shell will search for commands         PATH
+			-your terminal type and size                       TERM,COLUMNS and LINES
+			-other things your applications may need
+		for example , the commands vi and more need to know what kind of terminal you are using so they can format the output correctly .Many applications require you to customize your environment in some way . This is done by modifying your .profile file .
+
+Setting Shell Variables :
+
+		A shell variable is a name that represents a value
+		The value associated with the name can be modified
+		Some shell variables are defined during the login process
+		A user can define new shell variables
+
+		Syntax :         name=value
+		Note :No space around the equal sign
+
+Two Important Variables :
+	
+		The PATH variable :
+			-A list of directorties where the shell will search for the commands you type . It gives us the ability to type just a command name rather than the full path name to that command.
+			 for example : vi instead of /usr/bin/vi
+
+		The TERM variable :
+			-Describes your terminal type and screen size to the programs you run .the terminal type is set using the terminal's model number .
+			-If your terminal is acting strangely when you are using commands such as more and vi , check the TERM variable . If it is set correctly , execute the tset command , this will reset the terminal characteristics using the terminal type found in the TERM variable .
+
+		The command  :   eval 'tset -s type'    will set the terminal type in one step .
+
+Common Variable Assignments :
+
+		PS1=              // designates your primary prompt
+			PS1= ' [!] $ '   //displays command line number with prompt
+
+		TERM=2392a        // designates the terminal type of your terminal ; use the command :  eval 'tset -s -Q -h' , during startup,this will read the file /etc/ttytype to map your terminal    port with the appropriate terminal type . This is useful if you have different models of terminals attached to your system .
+
+What happens at login?
+	
+		1. getty
+				a. displays the contents of /etc/issue
+				b. Issues the login prompt
+				c. Runs login
+		2. login
+				a. validates user name and password
+				b. Places user in home directory
+				c. Runs the user's shell
+		3. shell
+				a. executes /etc/profile or /etc/csh.login
+				b. executes .profile or .login in the user's directory
+				c. 
+				d. issues the shell prompt
+		Once the shell starts running , it will read commands from a system command file called /etc/profile . whenever someone logs in and starts a shell , this file will be read . After 
+		/etc/profile is read ,the shell reads your own .profile  
+		
+		/etc/profiles sets up the basic environment used by everyone on the system and .profile further tailors that environment to your specific needs .
+
+		when these two programs are finished , the shell issues the first shell prompt .
+
+The shell startup Files :
+		-Variables defined in /etc/profile are overridden by definitions in .profile
+		-.kshrc is read every time you start a new shell , unlike .profile just when you login in . It will customize their environment .
+		-The file name for .kshrc is defined as an environment variable , ENV
+
+Shell Intrinsics vs UNIX Commands :
+   
+   		shell intrinsics are built into the shell : cd ls pwd echo
+   		UNIX commands live in /usr/bin : more file
+
+Looking for commands-whereis :
+
+		Syntax :        whereis [- b|- m|- s] command                 // search for bin ; manul ; source code files ;
+		Note :Unix stores its commands in four main directories :/sbin , /usr/bin , /usr/local/bin , /usr/contrib/bin  , the whereis command searches these as well as other directories to determine where a particular command lives . but it will not search user's personal bin directories .
+
+
+
+
+----------------------------------------------------------------------Module 8--Shell Advanced Features---------------------------------------------------------------------------------------------
+
+
+
+Shell Variable Storage :
+
+		Built into the shell are two areas of memory for use with shell variables .
+		Local variables :
+				-Private variables accessible only by current shell (process) 
+				-Can be moved (exported) to the environment
+				-Naming convention -- lowercase characters
+		Environment variables :
+				-Accessible by subprocesses
+				-Naming convention -- uppercase characters
+				-Many are defined during you login process that set up session characteristics
+
+Setting Shell Variables :
+
+		When a user creates a new variable , such as color , it will be stored in the local data area . When assigning a new value to an existing environment variable , such as PATH ,the new value will replace the old value in the environment .
+
+Variable Substitution :
+		
+		Each variable that is defined will have an associated value . When a variable name is immediately preceded by a dollar sign($) , the shell will replace the parameter with the value of the variable . This is known as variable substitution .
+		-  variable substitution is done by the shell , not by the command
+		-  variable substitution occurs prior to the execution of the command
+		-  echo $name is an effective method of displaying a variable value
+		-  all dereferenced variables are passed onto the command
+		-  variables can be used to assign values to other variables
+		-  a variable's value can be used to define itself
+
+Variable Substitution(Continued) : 
+
+		The use of an absolute path name for the value of a variable that references a file or directory allows you to be anywhere in the file hierarchy and still access the desired file or directory .
+
+				$   my_ls="ls -aFC"				use quotes so shell ignores space
+				$   $my_ls                      ls -aFC
+
+Command Substitution :allows you to capture the output of a command and use it as an argument to another command or assign it to a varaiable .
+				
+				Sytax  :  $(command)
+				Example : echo $(pwd)
+
+Tilde Substitution : If a word begins with a tilde(~) , tilde expansion is performed on that word .
+		
+		A tilde(~) by itself or in front of a / is replaced by the pathname set in the HOME variable .
+
+Displaying Variable Values :
+
+		-Variable substitution is the easiest way to display the value of a single variable - local or environment
+		-the env command displays all of the currently defined variables in the environment only
+		-the set command displays all of the currently defined variables(local and environment)
+		-the unset command deletes the specified variable.
+
+Transferring Local Variable to the Environment :
+
+		- Variables must be in the environment to be made available to child process .
+		- The export variable command transfers a local variable to the environment .
+		- When a variable is defined , it is stored in the local data space and must be exported to the environment .
+		- export is a shell built-in command 
+		- Syntax :
+					export variable=value
+
+Passing Variable to an Application :
+
+		When you login in your UNIX system , the shell program will be loaded , and a shell process executed . When you enter the name of an application(or command) to run at the shell prompt , a child process is created and executed through :
+			1. A fork which duplicates your shell process , inlcuding the progrm code , the environment data space , and the local data space .
+			2. An exec which replaces the code and local data space of the child process with the code and local data space of the requested application .
+			3. The exec will conclude by executing the requested applicatuion process
+		while the child process is executing , the shell(the parent) will sleep , waiting for the child to finish .
+
+		environment variables are propagated to child processes , whereas local variables are not .Therefor we see that one way of passing data to(child) process is through the environment .
+
+Monitoring Process :
+
+		Every process that is initiated on the system is assigned a unique identification number,known as a process ID(PID).the ps command displays information about processes currently running(or sleeping) on your system ,including the PID of each process and the PID of each process' parent (PPID) . The ps command will also report who owns each process, which terminal each process is executing through , and additional useful information .
+
+Child processes and the Environment :
+
+		the child processes cannot alter their parent process' environment .
+
+
+
+----------------------------------------------------------------------Module 9--File name Generation---------------------------------------------------------------------------------------------
+  wildcard   -通配符          negate  -反面
+
+
+
+File Name Generation :  the shell provides a time-saving feature for typing file names . you can find file names that match a pattern.The feature is called file name generation or file name       						expansion
+
+			- File name generation characters are interpreted by the shell
+			- File names are generated before the command is executed
+			- File name generating characters are not wildcards,wildcards are interpreted by the command . This is useful when looking for files that follow a naming convention .
+
+
+
+File Name Generation and Dot Files :
+
+			- Dot files are files whose names begin with the dot(.) character,such as .profile , .kshrc and .exrc;these files are normally hidden;you must use the ls -a to display these file names
+			- file name generating characters will never generate a file name that has a leading dot
+			- if you would like to display the file names that beging with a dot , you will need to explicitly provide the leading dot as a part of the file name pattern .
+
+
+File Name Generation : 
+
+			?  -- matches any single character except a leading pot ; it represents one character position .
+				  - file name generating is more commonly used with the file manipulation commands
+				  - Be careful when using file name generation characters with the rm command -- when a file is removed it is GONE !
+				  - if no match is found , the pattern will be passed as the argument to the command
+
+			[] -- defines a class of characters from which one will be matched
+				  - Even if a dot is defined in the class , it will not be matched as the first character in a file name .
+				  - An exclamation point(!) as the first item inside the bracket negates the character class;that is,the class stands for the class of all characters not listed inside the bracket
+				  - If a hyphen(-)is placed between two characters within brackets,the character class will be all characters in the ASC sequence,from the first character to the last one inclusive
+
+			*  -- matches zero or more characters except a leading dot(.)
+				  - $ echo *            // generates all file names except dot files
+				  - $ echo .*           // generates all dot files
+				  - $ echo *.dat        // generates all file names ending in .dat except dot files
+
+
+----------------------------------------------------------------------Module 10--Quoting---------------------------------------------------------------------------------------------
+
+there are many characters in the UNIX system that have special meaning for the shell , there are situations in which you do not want the shell to interpret the special meaning associated with these characters . You require just the literal character.You may need the mechanism called quoting .
+
+		-Backslash(\)             Escapes next character
+		-Single Quotes('')        Escapes all characters inside ''
+		-Double Quotes("")		  Escapes all characters inside "" , except \ , $ , {variable name} , and $(command)
+
+
+
+----------------------------------------------------------------------Module 11--Input and Output Redirection---------------------------------------------------------------------------------------
+
+
+Input and Output Redirection :
+
+		- Everything in the UNIX system is a file
+		- Commands generate output to the terminal file
+		- Commands accept input from the keyboard file
+		- Input and output redirection allow you to replace these default devices with text files
+		- Output redirection is useful for logging command output , or saving output for future processing(filters)
+		- Input redirection is useful because you can create a file using an editor and send that file into the command instead of typing it inteactively
+
+stdin,stdout,and stderr :  Every time a shell is started , threee files are automatically opened for your use . these files are stdin,stdout,stderr.
+
+		- The stdin file is the file from which your shell reads its input . it is usually called standard input . This file is opened with the C language file descriptor, 0 ,and is usually attached to your keyboard.Therefor , when the shell needs input,it must be typed in at the keyboard .
+		- The stdout file is the file to which your shell writes its normal output . it is usually called standard output . This file is opened with the C language file descriptor, 1 ,and is usually attached to your terminal.Therefor , when the shell produces output , it is displayed to your screen .
+		- The stderr file is the file ro which your shell writes its error messages . it is usually called standard error . This file is opened with the C language file descriptor, 2 . Like the stdout file ,the stderr file is usually attached to the monitor part of your terminal . The stderr file can be redirected independently of the stdout file .
+
+Input redirection : Any command that reads its input from stdin can have its input redirected to come from another file 
+ 
+ 		Syntax :  command < filename
+ 		Example : mail user3<remind 
+
+ 		Note : 
+ 		     - You can identify commands that accept standard input by entering the command and a Return.If the prompt disappears and the system seems to be waiting,it is waiting for you to provide input from the keyboard.
+ 		     - Distinguish input provided through command line arguments and from input provided through standard input(stdin).
+ 		     - Using a file as input is non-destructive to the input file .
+
+ 		     - Input redirection redirects the input to come from a file instead of from the keyboard
+ 		     - Input redirection is rarely executed explicitly because most commands that accept stdin also accept file name as command line arguments(exceptions include mail and write)
+
+
+Output Redirection : Any command that produces output to stdout can have its output redirected to another file . 
+		
+
+		Syntax  :  command < filename			 
+        Example :  date > date.out       // Create or Overwrite
+        		   date >> who.log       // Create or Append  
+        
+		- Many commands generate output messages to your screen . Output redirection allows you to capture the output and save it to a text file .
+		- You will see no command output displayed on your terminal , unless an error message is generated .
+
+		- Output redirection is commonly used for logging purposes or long-term storage of the output of a command
+
+Error Redirection : Any command that produces error messages to stderr can have those messages redirected to another file 
+
+		Syntax  :  command 2> filename
+		Example :  cp 2> cp.err          // Create or Overwrite
+				   cp 2>> cp.err   		 // Create or Append 
+
+
+		Note :  
+			  - Since the error messages are separated from the regular output messages , you can easily capture the error messages ,  and maintain a log file which records the problems your program encoutered .
+
+What is filter ?
+
+		- some commands accept input from standard input and generate output to standard output.These commands are known as filters . 
+		- filter never modify the contents of the file that is being processed . Filtered results are usually transmitted to the terminal .
+		- Filters can be used to process the output of any command when the command's output is saved to a file .
+		- filtered output can be saved to a file .
+
+wc -- word count  :      
+
+		Syntax :  wc [-lwc] [file...]           // counts lines , words , and characters in a file .
+		Example : wc -l funfile
+				  wc funfile                    
+				  wc -w ls.out
+				  wc <funfile                   // standard input raplaced by file funfile .
+		Note  :  wc accepts input from standard input and writes its output to a standard output , wc is a filter .
+
+sort -- Alphabetical or Numerical Sort  :
+
+		Syntax :  sort [-ndutX] [-k field_no] [file...]
+		Example : 
+
+
+
+
+		Note :           
+
+					Sort Option                        Sort Type 
+					 none                               ASC
+					 -d                                 dictionary(disregards all characters that are not letters,numbers,or blanks)
+					 -n                                 numerical
+					 -u                                 unique(suppress all duplicate lines)
+
+grep -- Pattern Matching  : grep will search for lines that contain the specified pattern and will echo those lines back out to your terminal;the pattern is technically a regular expression
+
+		Syntax  :  grep [-cinv] [-e] pattern [-e pattern] [file...]
+				   grep [-cinv] -f patterns_list_file [file...]
+
+		Examples :
+				   grep user /etc/passwd
+				   grep -v user /etc/passwd
+
+		Note :           
+					Sort Option                        Sort Type 
+					 -c                               only  a count of matching lines is printed
+					 -i                               tells grep to ignore the case of the letters in the pattern
+					 -n                               prepends line numbers to each line displayed
+					 -v                               displays the lines which do not contain the pattern
+
+
+
+
+----------------------------------------------------------------------Module 12--Pipelines---------------------------------------------------------------------------------------
+
+
+Introduction :  Pipelines allow you to transfer the output of one command directly as the input of another command.You do not have to create an intermediate file;therefore , no cleanup is required				when you have completed the processing .
+			- Pipelines allow chaining of commands
+			- The output of one command becomes the input for another command
+			- There is no temporary file to remove
+
+The | symbol :
+			
+			- Any command to the left of a | symbol must produce output to stdout
+			- Any command to the right of a | symbol must read its input from stdin
+			- Any command between two | symbols must accept standard input and produce output to standard output.(It must be a filter)
+			- The more command accepts standard input,so it can be used to view the output of any command that generates output to standard output onescreen at a time
+
+Pipelines versus Input and Output Redirection :
+
+			- Input and Output redirection is used to direct between a process and a file (between a command and a file)
+			- Pipelines are used to direct between processes (between two or more commands)
+
+Redirection in a Pipeline :
+
+			- Every command has three available streams : stdin , stdout , stderr ; The streams that are not dedicated to the pipeline can be redirected .
+			- Any command on the left of a pipe symbol can redirect input and errors because its output is passed on to the next command in the pipeline
+			- Any command on the right of a pipe symbol can redirect output and errors because its input is comming from the previous command in the pipeline
+			- Any command between two pipe symbols can redirect errors because its input is coming from the previous command and its output is going to the next command in the pipeline .
+
+Some Filters :
+	
+			- All filters accept standard input and generate standard output , so they can appear anywhere of a pipeline 
+
+
+
+cut -- cut the specified columns or fields from stdin or a file and send to stdout
+
+		Syntax  :  cut -clist [file...]                       // -c option is for cutting columns
+				   cut -flist [-dchar] [-s] [file...]         // -f option is for cutting fields
+		Example :  date | cut -c1-3
+				   cut -f1,6 -d: /etc/passwd
+				   cut -f1,3,5-7 /etc/passwd                  // would cut fields one , three , and five through seven from each line of /etc/passwd
+
+		Note  :  
+
+tr --  tr is useful for converting multiple blank spaces to a single space.Examples of commands are who , ps , and date ,which embed a variable number of spaces between fields
+
+		Syntax  :  tr [-s] [string1] [string2]
+		Example :  date | cut -c1-3 | tr "[:lower:]" "[:upper:]"
+				   who | tr -s " "                            // convert many consecutive blank spaces to a single blank space
+		Note  :  - tr allows the use of the field option for cut or sort instead of referencing literal column numbers
+				 - tr can be used to convert strings from lowercase to uppercase or from uppercase to lowercase
+				 - the s option squeezes all strings of repeated output characters that appear in string2 to single characters
+
+
+tee -- tee command is used to tap a pipeline.tee reads from stdin and writes its output to stdout or specified file.if the -a option is used,tee appends its output to the file instead of 				   overwriting it
+
+		Syntax  :  tee [-a] file [file...]
+		Example :  
+		Note  :  
+				the tee command is used predominantly under two circumstances :
+				1.to collect intermediate output in a pipeline
+				2.to send final output of a command to the screen and (and and)to a file
+
+				when output is redirected,you will not see any output to the screen ; when the output is tee'd,the output goes to the screen and to the file
+
+					$ who | tee unsorted | sort >sorted                 // output just to file
+					# who | tee unsorted | sort | tee sorted            // output to screen and file
+
+pr -- print to stdout;it sends its output to the stdout,not to the printer;it's useful for printing long files because it will insert a header on the top of each new page that includes the file 		  name and a page number
+
+		Syntax  :  pr [-option] [file...]
+		Example :  
+
+		Note  :  pr has many handy options
+				-k             produces k-column output;prints down the column
+				-a             produces multicolumn output;used with -k;prints across
+
+printing from a pipeline : is used to queue a job for the printer.
+
+		Syntax  :  ... | lp           //  located at end of pipe;sends output to printer
+		Example :  pr -158 funfile | lp
+
+		Note  :  
+				-lp accepts stdin as well as file names as arguments
+				-put a tee in your pipeline if you want to save the output to a file and print the file
+
+
+----------------------------------------------------------------------Module 13--Using Network Service---------------------------------------------------------------------------------------
+
+
+What is a Local Area Network ?
+
+		A Local Area Network is a method of connecting two or more computer systems over a small area.Most installations that have more than one computer will install a LAN to allow the users to work on several different computers without physically picking up all of theri work and moving to the computer they want to work on .
+
+		-Copy files from one computer to another.Without a LAN,you would have to make a tape copy of your files,walk it over to the other computer,and reload the tape.
+		-Log in to another computer from a terminal on the local computer,normally you would have to actually go to the other computer to log in.
+		-Execute commands on another computer and see the results locally.Again,you would have to move to the other computer if you did not have a LAN
+		-Access files on a remote computer.This means we will use the files on another computer's disk without copying the files to the local disk 
+
+LAN Services : To show the many commands that you can use to perform remote tasks.Which commands the students can use will depend on which of these services they have installed on their computer
+
+		Two group of LAN services are :
+
+		-ARPA Services: Defined by the Defence Advanced Research Projects Agency(DARPA) in the late 1960s ; used to communicate between many types of computers with different operating systems
+		                include telnet and ftp
+		-Berkely Services: primarily used between UNIX systems(although they do work on other systems) ; include rco , rlogin , remsh .
+
+		TCP/IP is the underlying protocol that the network services use to facilitate the communications across the LAN
+
+The hostname Command ;
+		hostname is the name that identifies your system on the LAN ; If you want to communicate with another computer on the LAN , you must know its hostname ;
+		Example :  $ hostname                            // reports your computer's network name
+				   $ more /etc/hosts                     // you can find host names in the /etc/hosts
+		Note : In order to use any of the LAN services , you must be a valid user on the remote computer .
+
+The telnet command : To log in remotely to another computer running the ARPA Services , you would use telnet
+
+		Syntax  :  telnet hostname                 // after you typed the command , you have to enter the user name and password that you use on that matchine and you will be logged in ;
+												   // to close a telnet connection , simply log off the remote computer using Ctrl+d or exit
+The ftp Command  :  ARPA service to copy files to and from a remote computer 
+
+		Syntax  :  ftp hostname      // ftp will prompt you for your user name and password on the remote system ; Once you give the correct login information ,you get the ftp> prompt ;
+
+		Now you can use the ftp command :
+
+		Syntax  :  get rfile lfile   // copy rfile--remote file to the file lfile--local file on your local computer ; you can also use full path names as file names
+				   put lfile rfile   // copy the local file lfile to the remote file named rfile
+				   ls                // list the files on the remote computer
+				   ?                 // list all of the ftp commands
+				   help command      // display a very brief help message for command
+				   quit              // Disconnect from the remote computer and leave ftp
+
+The rlogin Command  :  Berkeley Services to remotely log in to another computer ; rlogin attempts to log you in using local user name , so it does not have to prompt for your user name
+
+		Syntax  :  rlogin hostname   // if your system administrator has a file called /etc/hosts.equiv configured , rlogin will not even prompt you for a password ;
+										A file called .rhosts in your HOME directory as an alternative to hosts.equiv
+
+		rlogin is usually the preferred way to login in remotely to another UNIX system computer because it is easier to manipulate than telnet
+
+The rcp Command  :  rcp stands for remote cp , because it works just as the cp command does .
+
+		Syntax  :  rcp host1:source host2:dest     // if you are copying to or from a local file , you can leave off the local host name and the colon(:)
+		Example :  rcp fred:/tmp/funfile barney:/tmp
+
+		Note  :  the file /etc/hosts.equiv or .rhosts must be configured correctly for rcp to work 
+
+The remsh Command  :  Berkely Services to run a command on a remote computer ; allows you to run a program on a remote computer and see the results on your terminal :
+
+		Syntax  :  remsh hostname command
+		Example :  remsh fred ps -ef         // if you want to see what is running on the system fred , you could execute this command .
+				   cat myfile | remsh fred lp  // use remsh to print files on a printer connected to a another computer
+
+		Note  :  the file /etc/hosts.equiv or .rhosts must be configured correctly for rcp to work 
+
+The rwho Command  :  rwho produces output similar to who , displays users on all of the systems in your LAN that are running the rwho daemon
+
+		Note  :  this is a useful command to see if someone else is currently logged in on your network .
+
+				- The rwho daemon , rwhod ,is started at boot time through /etc/rc.config.d/netdaemons ; you can run ps -ef | more to see if the rwhod daemon is running ;
+
+The ruptime Command  :  the ruptime command will display the status of the systems in the LAN , whether they are up or down , how many users are currently running no each system , and machine 							loading information 
+
+		Note  :  Each system must be running the rwho daemon .
+
+
+----------------------------------------------------------------------Module 15--Process Control---------------------------------------------------------------------------------------
+
+
+The ps Command  :  gives you PID(process ID) , PPID(process's parent ID) , who owns each process and which terminal each process is executing through
+
+		Syntax  :  ps [-efl]    // -e :  reports every process running on the system,not just your own
+								// -f :  reports full listing of every process
+								// -l :  reprots long listing of every process 
+
+		Example :  ps           // with no option , the ps command will show information of processes associated with our terminal
+				   ps -ef       // giving a full(-f) listing of every(-e) process on the system
+
+		Note : the ps command is CPU intensive , and you may notice a slower response while it is executing .  
