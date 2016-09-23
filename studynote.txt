@@ -873,3 +873,10 @@ The ps Command  :  gives you PID(process ID) , PPID(process's parent ID) , who o
 				   ps -ef       // giving a full(-f) listing of every(-e) process on the system
 
 		Note : the ps command is CPU intensive , and you may notice a slower response while it is executing .  
+
+
+
+
+
+
+2016/9/23 16:47 git 实验
